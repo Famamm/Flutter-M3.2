@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:percobaan/model/tourism_place.dart'; // Import modelnya
+import 'package:tugas/model/tourism_place.dart';
 
 class DetailScreen extends StatelessWidget {
-  // 1. Tambahkan penampung data (final TourismPlace place;) dan required di constructor [cite: 225, 226]
   final TourismPlace place;
 
   const DetailScreen({Key? key, required this.place}) : super(key: key);
@@ -11,27 +10,83 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView( // Tambahkan SingleChildScrollView agar bisa discroll jika konten panjang
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // 2. Ganti Image statis jadi ambil dari data 'place' [cite: 234]
+              // Gambar Utama
               Image.asset(place.imageAsset),
+
+              // Judul
               Container(
                 margin: const EdgeInsets.only(top: 16.0),
                 child: Text(
-                  // 3. Ganti teks judul statis jadi ambil dari data 'place' [cite: 237, 238]
                   place.name,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 30.0,
-                    fontFamily: 'Staatliches', // Sesuaikan dengan font yang kamu pakai di project
+                    fontFamily: 'Staatliches',
                   ),
                 ),
               ),
-              // ... (Sisa kode tampilan ikon dan deskripsi dari praktikum sebelumnya)
-              // Pastikan kamu tetap meletakkan Row untuk ikon-ikon (hari, jam, harga)
-              // dan Text untuk deskripsi di bawah judul ini sesuai desain awal DetailScreen kamu.
+
+              // Ikon Informasi (Hari, Jam, Harga) - Dinamis
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        const Icon(Icons.calendar_today),
+                        const SizedBox(height: 8.0),
+                        Text(place.openDays),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        const Icon(Icons.access_time),
+                        const SizedBox(height: 8.0),
+                        Text(place.openTime),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        const Icon(Icons.monetization_on),
+                        const SizedBox(height: 8.0),
+                        Text(place.ticketPrice),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              // Deskripsi - Dinamis
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  place.description,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+              ),
+
+              // Galeri Foto - Dinamis
+              SizedBox(
+                height: 150,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: place.imageUrls.map((url) {
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(url),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
             ],
           ),
         ),

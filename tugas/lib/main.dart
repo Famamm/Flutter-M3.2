@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:percobaan/main_screen.dart'; // Import main_screen kita
+import 'package:tugas/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Wisata App',
       theme: ThemeData(),
-      // Nah, ini kuncinya. Kita suruh aplikasi buka MainScreen pertama kali
       home: const MainScreen(),
     );
   }

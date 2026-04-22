@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:percobaan/model/tourism_place.dart'; // Nanti ini dibikin
-import 'package:percobaan/detail_screen.dart'; // Pastikan file detail_screen.dart sudah ada dari praktikum sebelumnya
+import 'package:tugas/model/tourism_place.dart';
+import 'package:tugas/detail_screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -9,51 +9,50 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wisata Bandung'), // Judul AppBar sesuai modul
+        title: const Text('Wisata Surabaya'),
       ),
-      body: ListView.builder( // Menggunakan ListView.builder untuk list yang efisien [cite: 190, 201]
+      body: ListView.builder(
         itemBuilder: (context, index) {
-          final TourismPlace place = tourismPlaceList[index]; // Mengambil data dari array [cite: 204]
-          return InkWell( // Membuat area bisa diklik [cite: 107, 119]
+          final TourismPlace place = tourismPlaceList[index];
+          return InkWell(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) { // Navigasi ke DetailScreen [cite: 124, 134, 209]
-                return DetailScreen(place: place); // Mengirim data 'place' ke DetailScreen [cite: 210]
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return DetailScreen(place: place);
               }));
             },
-            child: listItem(place), // Memanggil fungsi pembuat layout item [cite: 212]
+            child: listItem(place),
           );
         },
-        itemCount: tourismPlaceList.length, // Jumlah item sesuai panjang array data [cite: 214]
+        itemCount: tourismPlaceList.length,
       ),
     );
   }
 
-  // Fungsi untuk membuat tampilan per-item di list [cite: 56, 68]
-  Widget listItem(TourismPlace place) { // Menerima parameter TourismPlace [cite: 218, 220]
-    return Card( // Widget Card untuk efek kotak berbayang [cite: 54, 74, 220]
-      child: Row( // Row untuk menyusun gambar dan teks ke samping [cite: 71, 75, 220]
+  Widget listItem(TourismPlace place) {
+    return Card(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Expanded( // Expanded 1 untuk Gambar [cite: 81, 89, 220]
+          Expanded(
             flex: 1,
-            child: Image.asset(place.imageAsset), // Memanggil gambar dari data [cite: 220]
+            child: Image.asset(place.imageAsset),
           ),
-          Expanded( // Expanded 2 untuk Teks [cite: 81, 93, 220]
+          Expanded(
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column( // Column untuk menyusun Nama dan Lokasi ke bawah [cite: 97, 220]
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    place.name, // Memanggil nama tempat dari data [cite: 220]
+                    place.name,
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(place.location), // Memanggil lokasi tempat dari data [cite: 220]
+                  Text(place.location),
                 ],
               ),
             ),
